@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar con Fondo Dinámico</title>
+    <!-- Agrega jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- Agrega Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Agrega tu estilo personalizado -->
+    <style>
+        body {
+            padding-top: 56px; /* Altura de la barra de navegación */
+        }
+
+        section {
+            height: 500px; /* Altura de cada sección, ajusta según sea necesario */
+            border: 1px solid #ddd; /* Borde para visualización */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#section1">Section 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section2">Section 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section3">Section 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section4">Section 4</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="section1">
+        <h2>Section 1</h2>
+    </section>
+
+    <section id="section2">
+        <h2>Section 2</h2>
+    </section>
+
+    <section id="section3">
+        <h2>Section 3</h2>
+    </section>
+
+    <section id="section4">
+        <h2>Section 4</h2>
+    </section>
+
+    <!-- Agrega Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-oKl2P5l+5BJUzBWEsde7ATLdzkrvcQH9djNUfW9XK0lMdcazqMHECudEG0Op6ArI" crossorigin="anonymous"></script>
+    
+    <!-- Script para el desplazamiento suave y cambio dinámico de fondo -->
+    <script>
+        $(document).ready(function () {
+            // Agrega el desplazamiento suave para los enlaces de la barra de navegación
+            $(".nav-link").on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+
+                    var hash = this.hash;
+
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        window.location.hash = hash;
+                    });
+                }
+            });
+
+            // Cambio dinámico de fondo del navbar según la sección visible
+            $(window).scroll(function () {
+                var scrollPosition = $(this).scrollTop();
+
+                $('section').each(function () {
+                    var target = $(this).offset().top;
+                    var targetHeight = target + $(this).height();
+
+                    if (scrollPosition >= target && scrollPosition <= targetHeight) {
+                        var sectionId = $(this).attr('id');
+                        $('.nav-link').removeClass('active');
+                        $('a[href="#' + sectionId + '"]').addClass('active');
+                        $('.navbar').removeClass('bg-section1 bg-section2 bg-section3 bg-section4');
+                        $('.navbar').addClass('bg-' + sectionId);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+

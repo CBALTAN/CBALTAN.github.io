@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #121212;
+            text-align: center; 
+            border-top-left-radius: 20px;
+        }
+
+        img {
+            max-width: 100%; 
+            height: auto; 
+        }
+        .custom-bg-color {
+            background-color: #121212;
+        }
+        .container-fluid {
+        margin-left: auto !important;
+        }
+        .custom-margin {
+        margin-bottom: 30px; 
+        }
+        .text-red {
+        color: red !important; 
+        }
+    </style>    
+</head>
+
+<body >
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript">
+    function cargardatos()    { 
+        $.post("../controlador/usuariocontroller.php",
+                {'opcion':'validarsesion'},
+                redirigir);  
+      }
+    function cerrarSesion() {
+        $.post("../controlador/usuariocontroller.php", {
+            'opcion': 'cerrarsesion'
+        }, redirigir);
+    }
+    function guardar() {
+            console.log($("#datos").serialize());
+            $.post("../controlador/usuariocontroller.php",
+                $("#datos").serialize(),
+                respuesta);
+        }
+    function redirigir(arg) {
+        if (arg == false) {  
+            $(location).attr('href', "nuevologin.html");
+        }
+    }
+    function respuesta(arg) {
+            if (arg == true) { 
+                $(location).attr('href', "home.html");
+            } else {
+                alert(arg);
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand navbar-light bg-black fixed-top">
+    <img src="../Imagenes/logo.png" alt="Logo" width="100" height="100" class="d-inline-block align-text-top">
+        <a class="navbar-brand text-white">ConsolePlus</a>
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item" hidden>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
+        <div class="navbar-nav">
+        <ul class="navbar-nav">
+             <li class="container mt-1">
+                <a href="carrito.html">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087847.png" width="24" alt="Icono de carrito" style="background: transparent; border: none;">
+                </a>
+            </li>
+            <li class="nav-item dropdown" style="z-index: 1000;">
+                <button class="btn dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                Cbs_Baltanl-_-l
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Cuenta</a></li>
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" onclick="cerrarSesion();">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black justify-content-start fixed-top" style="margin-top: 60px; z-index: 999;">
+        <div class="container">
+            <ul class="nav nav-tabs" >
+                <li class="nav-item">
+                    <a class="nav-link active text-red" aria-current="page" href="admin.html">USUARIO</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-red " href="carritocon.html">CARRITO</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Contenido de la sección anterior -->
+   <div class="card text-start text-white border-0">
+        <img src="../Imagenes/15070.jpg" class="card-img" alt="...">
+        <div class="card-img-overlay">
+            <h5 class="card-title">Call of Duty: Modern Warfare III</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+                This content is a little bit longer.</p>
+            <p class="card-text"><small>Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+
+<div>
+
+<div class="container text-center">    
+    <div class="row">
+        <div class="col-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.html">Insertar</a>
+                </li>
+                <li class="naz-item">
+                    <a class="nav-link" href="consultar.html">Consultar</a>
+                </li>
+            </ul>
+        </div>
+    <div class="col">
+        <form id="datos" >
+            <input class="form-control" name="opcion" type="text" value="insertar" hidden >
+            <label for="username" class="form-label text-white">Username</label>
+            <input class="form-control " name="usuario" type="text" placeholder="Ingrese Username" >
+            <label for="password" class="form-label text-white">Password</label>
+            <input type="password" id="password" name="password"class="form-control" placeholder="Ingrese Password" >
+            <label for="nombre" class="form-label text-white">Nombre</label>
+            <input class="form-control " name="nombre" type="text" placeholder="Ingrese Nombre" >
+            <label for="apellido" class="form-label text-white">Apellido</label>
+            <input class="form-control" name="apellido" type="text" placeholder="Ingrese Apellido" >
+            <br />
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="button" onclick="guardar()" >Guardar</button>
+            </div>
+        </form>  
+    </div>
+  </div>
+</div>
+    
+
+</body>
+<footer class="bg-black text-light">
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Información de Contacto</h5>
+                <p>Dirección: Calle Principal #123</p>
+                <p>Teléfono: (123) 456-7890</p>
+                <p>Correo Electrónico: info@tudominio.com</p>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <p>ACEPTAMOS</p>
+                    <p>DEPÓSITOS O TRANSFERENCIAS BANCARIAS</p>
+                    <img id="debito_card" src="https://site.comandato.com/footer/img/debito_cards.svg" class="img-fluid" width="200" height="50">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <p>ACEPTAMOS</p>
+                    <p>TARJETAS DE CRÉDITO</p>
+                    <img id="tarjetas_card" src="https://comandato.vteximg.com.br/arquivos/vteximg_com_br-tarjetas_bn.png?v=637369923356730000" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="text-center">© 2023 Tu Empresa. Todos los derechos reservados.</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center">
+                    Copyright © 2023 ConsolePlus|
+                    <a target="_blank" href="https://www.facebook.com">
+                        <img id="logo_premios" src="https://static.vecteezy.com/system/resources/previews/023/986/613/non_2x/facebook-logo-facebook-logo-transparent-facebook-icon-transparent-free-free-png.png" alt="Facebook" class="img-fluid redes-sociales" alt="Logo" width="50" height="34" class="d-inline-block ">
+                    </a>
+                    <a target="_blank" href="https://www.instagram.com">
+                        <img id="logo_premios" src="https://static.vecteezy.com/system/resources/previews/023/986/555/non_2x/instagram-logo-instagram-logo-transparent-instagram-icon-transparent-free-free-png.png" alt="Instagram" class="img-fluid redes-sociales" alt="Logo" width="50" height="34" class="d-inline-block ">
+                    </a>
+                    <a target="_blank" href="https://www.youtube.com">
+                        <img id="logo_premios" src="https://static.vecteezy.com/system/resources/previews/018/930/572/original/youtube-logo-youtube-icon-transparent-free-png.png" alt="YouTube" class="img-fluid redes-sociales" alt="Logo" width="50" height="34" class="d-inline-block ">
+                    </a>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+</html>
